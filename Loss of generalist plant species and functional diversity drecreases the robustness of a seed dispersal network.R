@@ -1,6 +1,6 @@
 ###################################
 #Paper Loss of generalist plant species and functional diversity decreases the robustness of a seed dispersal network
-#Bastazini V. A. G., Debastiani, V. J., Guimarães, P. R., & Pillar, V. D. (in review)
+#Bastazini V. A. G., Debastiani, V. J., Guimarães, P. R., & Pillar, V. D. (in review, see preprint in: doi: https://doi.org/10.1101/187179)
 #Last updated: 2017-06-04
 #Contacts: 
 #bastazini.vinicius@gmail.com
@@ -120,7 +120,7 @@ fit.hyperbolica=function (object, plot.it = TRUE, ...)
                start = list(a = 1))
   if (plot.it) {
     par(mar = c(5, 5, 1, 1))
-    plot(x, y, xlab = "Fraction of elimited plants", 
+    plot(x, y, xlab = "Fraction of eliminated plants", 
          ylab = "Fraction of surviving birds", 
          axes = TRUE, type = "n", cex.lab = 1)
     
