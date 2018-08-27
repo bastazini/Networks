@@ -6,6 +6,9 @@
 #bastazini.vinicius@gmail.com
 #vanderleidebastiani@yahoo.com.br
 ##################################
+require(picante)
+require(bipartite)
+require(vegan)
 
 #### Estimating disctinct scenarios of species extinction and network robustness
 
