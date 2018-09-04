@@ -1,6 +1,7 @@
 ###################################
 #Loss of generalist plant species and functional diversity decreases the robustness of a seed dispersal network
-#Bastazini V. A. G., Debastiani, V. J., Guimarães, P. R., & Pillar, V. D. (in review, see preprint in: doi: https://doi.org/10.1101/187179)
+#Bastazini V. A. G., Debastiani, V. J., Guimarães, P. R., & Pillar, V. D. (in press). Environmnetal Conservation.
+#preprint available at: https://doi.org/10.1101/187179)
 #Last updated: 2017-06-04
 #Contacts: 
 #bastazini.vinicius@gmail.com
