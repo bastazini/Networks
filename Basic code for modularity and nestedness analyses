@@ -1,6 +1,6 @@
-#############################################
-#Basic code for modularity and nestedness analysis
-###################################################
+##################################################
+#Basic code for modularity and nestedness analyses
+##################################################
 # packages
 install.packages("multigraph")
 require(bipartite)
