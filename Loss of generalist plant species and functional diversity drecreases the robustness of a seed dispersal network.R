@@ -7,6 +7,7 @@
 #bastazini.vinicius@gmail.com
 #vanderleidebastiani@yahoo.com.br
 ##################################
+#packages
 require(picante)
 require(bipartite)
 
