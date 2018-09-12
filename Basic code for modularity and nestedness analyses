@@ -1,6 +1,5 @@
 ##################################################
 #Basic code for modularity and nestedness (weighted NODF) analyses in R
-#
 ##################################################
 # packages
 require(bipartite)
@@ -10,8 +9,10 @@ require(multigraph)
 ##import matrix
 rede=read.csv(file.choose(), h=T, row.names = 1, sep=";")
 
+##ploting the bi-adjacency matrix
 plotweb(rede, text.rot = 90, col.high = "black", col.low = "grey50", arrow = "down")
 
+##Nestedness (weighted NODF)
 ## calculate observed WNODF and null models
 #observed value
 obs.nest =unlist(networklevel(rede, index="weighted NODF"))
@@ -33,7 +34,7 @@ abline(v=obs, col="red", lwd=2)
 
 
 
-#modularity
+##Modularity
 obs.mod =unlist(computeModules(rede, method="Beckett", deep = FALSE, deleteOriginalFiles = TRUE,
                steps = 1000000, tolerance = 1e-10, experimental = FALSE, forceLPA=FALSE))
 
