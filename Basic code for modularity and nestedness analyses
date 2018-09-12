@@ -1,8 +1,8 @@
 ##################################################
-#Basic code for modularity and nestedness analyses
+#Basic code for modularity and nestedness (weighted NODF) analyses in R
+#
 ##################################################
 # packages
-install.packages("multigraph")
 require(bipartite)
 require(igraph)
 require(multigraph)
