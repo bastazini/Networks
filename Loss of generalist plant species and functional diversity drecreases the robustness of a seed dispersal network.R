@@ -1,6 +1,6 @@
 ###################################
 #Loss of generalist plant species and functional diversity decreases the robustness of a seed dispersal network
-#Bastazini V. A. G., Debastiani, V. J., Azambuja, B. O., Guimarães Jr., P. R., & Pillar, V. D. (in press). Environmental Conservation. doi: 10.1017/S0376892918000334
+#Bastazini V.A.G., V.J. Debastiani, B.O. Azambuja, P. R. Guimarães Jr., & V.D. Pillar (in press). Environmental Conservation. doi: 10.1017/S0376892918000334
 #preprint available at: https://doi.org/10.1101/187179)
 #Last updated: 2017-06-04
 #Contacts: 
@@ -26,7 +26,7 @@ distinc.order<-distinc[order(distinc[,2], decreasing = TRUE), ]
 distinc.order$Order<-1:length(tree$tip.label)
 distinc.order
 
-rownames(rede)==distinc.order[,1]
+rownames(rede)==distinc.order[,1]carnivore
 extinct.row<-distinc.order[match(rownames(rede),distinc.order[,1]),3]
 extinct.row
 
