@@ -1,1 +1,43 @@
+##########################
+##Getting IPCC data##
+##########################
 
+library(raster)
+
+##data from world Clim
+#dados do presente res=10
+
+getData('worldclim', var='bio', res=10)
+bio1<- raster("bio1.bil")
+plot(bio1)
+
+#dados do futuro 2070 res=10, modelos CCSM4 (CC) e MIROC-ESM (MR)
+
+#CCSM4
+getData('CMIP5', var='bio', res=10, rcp=26, model='CC', year=70) 
+bio26_1<- raster("cc26bi701.tif")
+plot(bio26_1)
+getData('CMIP5', var='bio', res=10, rcp=45, model='CC', year=70) 
+bio45_1<- raster("cc45bi701.tif")
+plot(bio45_1)
+getData('CMIP5', var='bio', res=10, rcp=60, model='CC', year=70) 
+bio60_1<- raster("cc60bi701.tif")
+plot(bio60_1)
+getData('CMIP5', var='bio', res=10, rcp=85, model='CC', year=70) 
+bio85_1<- raster("cc85bi701.tif")
+plot(bio85_1)
+
+
+#MIROC-ESM
+getData('CMIP5', var='bio', res=10, rcp=26, model='MR', year=70)
+bio26_1<- raster("mr26bi701.tif") 
+plot(bio26_1)
+getData('CMIP5', var='bio', res=10, rcp=45, model='MR', year=70)
+bio45_1<- raster("mr45bi701.tif") 
+plot(bio45_1) 
+getData('CMIP5', var='bio', res=10, rcp=60, model='MR', year=70)
+bio60_1<- raster("mr60bi701.tif") 
+plot(bio60_1) 
+getData('CMIP5', var='bio', res=10, rcp=85, model='MR', year=70) 
+bio85_1<- raster("mr85bi701.tif") 
+plot(bio85_1) 
