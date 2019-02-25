@@ -70,4 +70,4 @@ return(RES)
 }
 
 #######
-##Metrics of interest"connectance, robustness, 
+##Metrics of interest"connectance, robustness, closeness centrality, specialization###
