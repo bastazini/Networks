@@ -1,8 +1,11 @@
 ##########################
 ####Getting IPCC data####
 ##########################
-
-library(raster)
+require(geiger)
+require(bipartite)
+require(vegan)
+require(mice)
+require(raster)
 
 ##data from world Clim
 #dados do presente res=10
@@ -46,6 +49,7 @@ plot(bio85_1)
 ####################################
 ## GENERATING SIMULATED DATA #####
 ####################################
+
 
 gera_dados<-function(no_species1, no_species2, no_traits1, no_traits2, alpha1, alpha2){
 	tree1<-sim.bdtree(b=0.10, d=0.0,stop="taxa",n=no_species1, extinct=FALSE)
