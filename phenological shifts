@@ -1,5 +1,5 @@
 ##########################
-##Getting IPCC data##
+####Getting IPCC data####
 ##########################
 
 library(raster)
@@ -41,3 +41,26 @@ plot(bio60_1)
 getData('CMIP5', var='bio', res=10, rcp=85, model='MR', year=70) 
 bio85_1<- raster("mr85bi701.tif") 
 plot(bio85_1) 
+
+
+####################################
+## GENERATING SIMULATED DATA #####
+####################################
+
+gera_dados<-function(no_species1, no_species2, no_traits1, no_traits2, alpha1, alpha2){
+	tree1<-sim.bdtree(b=0.10, d=0.0,stop="taxa",n=no_species1, extinct=FALSE)
+	tree2<-sim.bdtree(b=0.10, d=0.0,stop="taxa",n=no_species2, extinct=FALSE)
+	### gerar atributos##
+	plantas_atributos<-matrix(NA,no_species1,no_traits1)
+	for(i in 1:no_traits1){
+		plantas_atributos[,i]<-(rTraitCont(tree1, model = "OU", sigma = 0.1, alpha = alpha1, theta = 0, ancestor = FALSE, root.value = 0))
+	}
+	aves_atributos<-matrix(NA,no_species2,no_traits2)
+	for(i in 1:no_traits2){
+		aves_atributos[,i]<-(rTraitCont(tree2, model = "OU", sigma = 0.1, alpha = alpha2, theta = 0, ancestor = FALSE, root.value = 0))
+	}    
+	###gerar matrix aleatória###
+	interacao <- matrix(rbinom((no_species2*no_species1),1,0.5),no_species2,no_species1)
+	RES<-list(tree1=tree1,tree2=tree2,plantas_atributos=plantas_atributos,aves_atributos=aves_atributos,interacao=interacao)
+return(RES)
+}
