@@ -8,9 +8,12 @@ require(multigraph)
 
 ##import matrix
 rede=read.csv(file.choose(), h=T, row.names = 1, sep=";")
+##Create a random network
+rede=genweb(N1 = 15, N2 = 20, dens = 3)
 
-##ploting the bi-adjacency matrix
-plotweb(rede, text.rot = 90, col.high = "black", col.low = "grey50", arrow = "down")
+## Ploting the network
+plotweb(rede,text.rot= 90, labsize=1,arrow="down.center",col.low="darkgreen", col.high="darkblue", col.interaction = "grey",
+ arrow = "down")
 
 ##Nestedness (weighted NODF)
 ## calculate observed WNODF and null models
