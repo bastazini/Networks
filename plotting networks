@@ -1,0 +1,23 @@
+
+require(bipartite)
+require(igraph)
+require(ggnet)
+dados=read.table(file.choose(), header=T);dados
+###removendo as sp. centrais
+dados1=dados[c(-1,-5,-6,-7),]
+###remoçao aletaoria
+dados2=dados[c(-2,-4,-12,-7),]
+
+
+
+
+
+
+ ###ggnet
+ teste = network(dados1,
+               matrix.type = "bipartite",
+               ignore.eval = FALSE,
+               names.eval = "weights")
+ 
+ col = c("actor" = "darkblue", "event" = "tomato")
+ ggnet2(teste, color = "mode", palette = col, vertex.size = "weights")
