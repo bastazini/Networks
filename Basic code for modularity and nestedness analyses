@@ -15,7 +15,7 @@ rede=genweb(N1 = 15, N2 = 20, dens = 3)
 plotweb(rede,text.rot= 90, labsize=1,arrow="down.center",col.low="darkgreen", col.high="darkblue", col.interaction = "grey",
  arrow = "down")
 
-##Nestedness (weighted NODF)
+#Nestedness (weighted NODF)
 ## calculate observed WNODF and null models
 #observed value
 obs.nest =unlist(networklevel(rede, index="weighted NODF"))
@@ -26,10 +26,14 @@ null.nest = unlist(sapply(nulls, networklevel, index="weighted NODF"))
 #save values in your folder
 write.table(null.nest,"aninhamento.txt")
 null.nest=as.matrix(null.nest)
-#calculatenp-values and 95%CI
-praw = sum(null.nest>=obs) / length(null.nest)
-ifelse(praw >=0.5, 1-praw, praw)    # P-value
+#calculate p-values and 95%CI
+p.val = sum(null.nest>=obs.nest) / length(null.nest);p.val
+
 #95%CI
-hist(as.vector(null.nest), col="grey", main="", xlim=c(min(obs, min(null.nest)), max(obs, max(null.nest))))
-quantile(null.nest,prob=(c(0.025,0.5,0.975)))
-abline(v=obs, col="red", lwd=2)
+hist(as.vector(null.nest), col="grey", main="", xlim=c(min(obs.nest, min(null.nest)), max(obs.nest, max(null.nest))))
+quant=quantile(null.nest,prob=(c(0.025,0.5,0.975)))
+abline(v=obs.nest, col="red", lwd=2)
+abline(v=quant, col="black", lwd=2)
+
+#ifelse(praw >=0.5, 1-praw, praw)    # P-value
+
