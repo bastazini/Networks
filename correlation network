@@ -1,11 +1,15 @@
+###Packages
 library(tidyverse)  
 library(corrr)
+###Example with 3 variables
+#creating and preparing data
 x=rnorm(10)
 x1=x+0.9
 x2=rnorm(10)
 x3=x2+0.5
 data=as.matrix(cbind(x,x1,x2,x3))
 data=t(data)
+###Calculating correlations a creating a correlation network
 res.cor <- correlate(data)
 res.cor
 data %>% correlate() %>% 
