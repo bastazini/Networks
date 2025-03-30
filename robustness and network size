@@ -1,0 +1,106 @@
+# Load the bipartite package
+library(bipartite)
+library(plotly)
+library(reshape2)
+
+# Function to simulate robustness with varying species richness, using bipartite package functions
+simulate_robustness_bipartite <- function(plant_richness_range, animal_richness_range, interactions = 100, reps = 10) {
+  # plant_richness_range: Vector of plant species richness values to test
+  # animal_richness_range: Vector of animal species richness values to test
+  # interactions: Approximate number of interactions in the network
+  # reps: Number of replicates for each species richness combination
+  
+  results <- data.frame(
+    plant_richness = numeric(),
+    animal_richness = numeric(),
+    robustness = numeric()
+  )
+  
+  for (plant_richness in plant_richness_range) {
+    for (animal_richness in animal_richness_range) {
+      for (i in 1:reps) {
+        # Generate a random interaction matrix
+        prob <- interactions / (plant_richness * animal_richness)
+        if (is.nan(prob) || is.infinite(prob)) {
+          prob <- 0
+        }
+        interaction_matrix <- matrix(rbinom(plant_richness * animal_richness, 1, prob),
+                                     nrow = plant_richness, ncol = animal_richness)
+        rownames(interaction_matrix) <- paste("plant", 1:plant_richness, sep = "")
+        colnames(interaction_matrix) <- paste("animal", 1:animal_richness, sep = "")
+        
+        # Ensure at least one interaction for each species
+        for (row in 1:nrow(interaction_matrix)) {
+          if (sum(interaction_matrix[row, ], na.rm = TRUE) == 0) {
+            interaction_matrix[row, sample(1:ncol(interaction_matrix), 1)] <- 1
+          }
+        }
+        for (col in 1:ncol(interaction_matrix)) {
+          if (sum(interaction_matrix[, col], na.rm = TRUE) == 0) {
+            interaction_matrix[sample(1:nrow(interaction_matrix), 1), col] <- 1
+          }
+        }
+        
+        # Calculate robustness using the second.extinct and robustness functions
+        ex <- second.extinct(interaction_matrix, participant = "lower", method = "random", nrep = 100, details = FALSE)
+        robustness_value <- robustness(ex)
+        
+        # Store the results
+        results <- rbind(results, data.frame(
+          plant_richness = plant_richness,
+          animal_richness = animal_richness,
+          robustness = robustness_value
+        ))
+      }
+    }
+  }
+  
+  return(results)
+}
+
+
+# Example usage:
+plant_range <- seq(10, 50, by = 10)
+animal_range <- seq(5, 25, by = 5)
+
+results <- simulate_robustness_bipartite(plant_range, animal_range, interactions = 100, reps = 500)
+
+print(results)
+
+# Optionally, visualize the results
+library(ggplot2)
+
+ggplot(results, aes(x = plant_richness, y = animal_richness, fill = robustness)) +
+  geom_tile() +
+  scale_fill_gradient(low = "azure", high = "red") +
+  labs(
+    title = "Robustness as a Function of Species Richness",
+    x = "Plant Species Richness",
+    y = "Animal Species Richness",
+    fill = "Robustness"
+  ) +
+  theme_minimal()
+
+
+# Aggregate robustness values to get a mean for each plant/animal richness combo
+aggregated_results <- aggregate(robustness ~ plant_richness + animal_richness, data = results, FUN = mean)
+# Create the 3D plot using plotly
+fig <- plot_ly(
+  data = aggregated_results,
+  x = ~plant_richness,
+  y = ~animal_richness,
+  z = ~robustness,
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(size = 5, color = ~robustness, colorscale = "Viridis") # Color by robustness
+)
+
+fig <- fig %>% layout(
+  scene = list(
+    xaxis = list(title = "Plant Richness"),
+    yaxis = list(title = "Animal Richness"),
+    zaxis = list(title = "Robustness")
+  )
+)
+
+fig  # Display the plot
